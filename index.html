@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <meta name="screen-orientation" content="portrait"/>
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <title>字符串加密</title>
+    <script type="text/javascript" src="./lib/base64.js"></script>
+    <style>
+        *{margin: 0;padding: 0}
+        .page{
+            width: 300px;
+            height: 200px;
+            padding: 10px;
+            margin: 40px auto;
+            border: 1px dashed #000;
+        }
+        .show-area{
+            height: 30px;
+            line-height:26px;
+            color: #f00;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <input type="text" id="inp" />
+    <input type="button" value="加密" id="encode" />
+    <input type="button" value="解密" id="decode" />
+    <input type="button" value="清空" id="clear" />
+    <p id="encodeArea" class="show-area"></p>
+    <hr />
+    <p id="decodeArea" class="show-area" style="color: lawngreen"></p>
+</div>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded',function() {
+        var oInp = document.getElementById('inp');
+        var oEncode = document.getElementById('encode');
+        var oDecode = document.getElementById('decode');
+        var oClear = document.getElementById('clear');
+        var encodeArea = document.getElementById('encodeArea');
+        var decodeArea = document.getElementById('decodeArea');
+
+        oEncode.addEventListener('click',function() {
+            var oValue = oInp.value;
+            if(oValue){
+                encodeArea.innerHTML = Base64.encode(oValue)
+            } else {
+                alert('请输入加密内容！');
+            }
+
+        },false);
+        oDecode.addEventListener('click',function() {
+            var data = encodeArea.innerHTML;
+            if(!data) return false;
+            if(data){
+                decodeArea.innerHTML = Base64.decode(data)
+            }
+        },false);
+        oClear.addEventListener('click',function() {
+            oInp.value = '';
+            encodeArea.innerHTML = '';
+            decodeArea.innerHTML = '';
+        },false);
+    },false)
+</script>
+</body>
+</html>
